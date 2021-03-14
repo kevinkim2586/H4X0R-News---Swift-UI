@@ -1,7 +1,13 @@
 import Foundation
 
-class NetworkManager {
+// By conforming to the ObservableObject protocol, it can start to broadcast >=1 properties to any
+// interest parties -> makes NetworkManager "observable"
+// Then, >=1 of its properties can be "published" to say that whenever it has changes to notify
+// all of the listeners
+
+class NetworkManager: ObservableObject{
     
+    @Published var posts = [Post]()
     
     func fetchData() {
         
@@ -19,18 +25,17 @@ class NetworkManager {
                         do {
                             let results = try decoder.decode(Results.self, from: safeData)
                             
+                            DispatchQueue.main.async {
+                                self.posts = results.hits
+                            }
+                            
                         } catch {
                             print(error.localizedDescription)
                         }
-                        
                     }
-
                 }
             }
             task.resume()
-            
         }
-        
     }
-    
 }
