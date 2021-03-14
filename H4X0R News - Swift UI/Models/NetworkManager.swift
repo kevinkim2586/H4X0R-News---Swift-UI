@@ -14,12 +14,20 @@ class NetworkManager {
                     
                     let decoder = JSONDecoder()
                     
-                    
-                    
-                    
-                    
+                    if let safeData = data {
+                        
+                        do {
+                            let results = try decoder.decode(Results.self, from: safeData)
+                            
+                        } catch {
+                            print(error.localizedDescription)
+                        }
+                        
+                    }
+
                 }
             }
+            task.resume()
             
         }
         

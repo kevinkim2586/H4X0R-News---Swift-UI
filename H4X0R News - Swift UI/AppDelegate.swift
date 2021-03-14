@@ -1,9 +1,3 @@
-//
-//  AppDelegate.swift
-//  H4X0R News - Swift UI
-//
-//  Created by Kevin Kim on 2021/03/14.
-//
 
 import UIKit
 
